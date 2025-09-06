@@ -52,12 +52,11 @@ npm start
 ## 📱 Features
 
 - ✅ Iranian mobile number validation (3 formats supported)
-- ✅ Real-time form validation with error states
+- ✅ Form validation with error states
 - ✅ Loading states and smooth transitions
 - ✅ Responsive design (mobile & desktop)
-- ✅ Dark/Light theme support
 - ✅ Accessibility compliant (WCAG 2.1)
-- ✅ TypeScript throughout
+- ✅ TypeScript
 - ✅ Modular component architecture
 
 ## 🎯 Usage
