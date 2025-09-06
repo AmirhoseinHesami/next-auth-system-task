@@ -46,17 +46,3 @@ export function getAuthState(): AuthState {
     isAuthenticated: !!user,
   };
 }
-
-/**
- * Redirects to login page
- */
-export function redirectToLogin(): void {
-  window.location.href = ROUTES.LOGIN;
-}
-
-/**
- * Redirects to dashboard page
- */
-export function redirectToDashboard(): void {
-  window.location.href = ROUTES.DASHBOARD;
-}

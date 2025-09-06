@@ -86,9 +86,6 @@ src/
 # Run linting
 npm run lint
 
-# Type checking
-npm run type-check
-
 # Build and test
 npm run build
 ```
