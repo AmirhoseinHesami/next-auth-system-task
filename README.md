@@ -31,7 +31,6 @@ A complete authentication flow with:
 ```bash
 # Clone the repository
 git clone <your-repo-url>
-cd simple-next-auth-system
 
 # Install dependencies
 npm install
