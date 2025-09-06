@@ -1,74 +1,71 @@
-"use client";
+import * as React from "react";
 
-import { forwardRef } from "react";
+import { cn } from "@/lib/utils";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+function Input({
+  className,
+  type,
+  label,
+  error,
+  helperText,
+  ...props
+}: React.ComponentProps<"input"> & {
   label?: string;
   error?: string;
   helperText?: string;
+}) {
+  const hasError = !!error;
+
+  return (
+    <div className="w-full">
+      {label && (
+        <label
+          htmlFor={props.id}
+          className="block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2"
+        >
+          {label}
+        </label>
+      )}
+      <input
+        type={type}
+        data-slot="input"
+        className={cn(
+          "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+          hasError
+            ? "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border-destructive"
+            : "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+          className
+        )}
+        aria-invalid={hasError}
+        aria-describedby={
+          hasError
+            ? `${props.id}-error`
+            : helperText
+            ? `${props.id}-helper`
+            : undefined
+        }
+        {...props}
+      />
+      {hasError && (
+        <p
+          id={`${props.id}-error`}
+          className="mt-2 text-sm text-destructive"
+          role="alert"
+        >
+          {error}
+        </p>
+      )}
+      {helperText && !hasError && (
+        <p
+          id={`${props.id}-helper`}
+          className="mt-2 text-sm text-muted-foreground"
+        >
+          {helperText}
+        </p>
+      )}
+    </div>
+  );
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, helperText, className = "", ...props }, ref) => {
-    const hasError = !!error;
-
-    return (
-      <div className="w-full">
-        {label && (
-          <label
-            htmlFor={props.id}
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-          >
-            {label}
-          </label>
-        )}
-        <input
-          ref={ref}
-          className={`
-            w-full px-4 py-3 border rounded-lg transition-colors duration-200
-            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-            disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-500
-            dark:bg-gray-800 dark:border-gray-600 dark:text-white
-            dark:focus:ring-blue-400 dark:disabled:bg-gray-700
-            ${
-              hasError
-                ? "border-red-500 focus:ring-red-500 dark:border-red-400 dark:focus:ring-red-400"
-                : "border-gray-300 dark:border-gray-600"
-            }
-            ${className}
-          `}
-          aria-invalid={hasError}
-          aria-describedby={
-            hasError
-              ? `${props.id}-error`
-              : helperText
-              ? `${props.id}-helper`
-              : undefined
-          }
-          {...props}
-        />
-        {hasError && (
-          <p
-            id={`${props.id}-error`}
-            className="mt-2 text-sm text-red-600 dark:text-red-400"
-            role="alert"
-          >
-            {error}
-          </p>
-        )}
-        {helperText && !hasError && (
-          <p
-            id={`${props.id}-helper`}
-            className="mt-2 text-sm text-gray-500 dark:text-gray-400"
-          >
-            {helperText}
-          </p>
-        )}
-      </div>
-    );
-  }
-);
-
-Input.displayName = "Input";
-
-export default Input;
+export { Input };
